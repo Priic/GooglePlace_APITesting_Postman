@@ -1,0 +1,310 @@
+{
+	"info": {
+		"_postman_id": "f187c371-944c-463a-86e8-a874a06d813a",
+		"name": "GoogleMapAI Testing",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Add new place Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ef717481-d536-4067-92b6-68f51ecfc074",
+						"exec": [
+							"\r",
+							"    pm.test(\"Status code is 200\", function () {\r",
+							"        pm.response.to.have.status(200);\r",
+							"    });\r",
+							"\r",
+							"const jsonData=JSON.parse(responseBody);\r",
+							"\r",
+							"pm.collectionVariables.set(\"placeID\", jsonData.place_id);\r",
+							"pm.collectionVariables.set(\"scope\", jsonData.scope);\r",
+							"pm.collectionVariables.set(\"reference\", jsonData.reference);\r",
+							"pm.collectionVariables.set(\"id\", jsonData.id);\r",
+							"pm.collectionVariables.set(\"address\",jsonData.address);\r",
+							"console.log(jsonData.place_id);\r",
+							"console.log(jsonData.scope);\r",
+							"console.log(jsonData.id);\r",
+							"console.log(jsonData.address);\r",
+							"console.log(responseBody);\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"_postman_id": "a6eb1abc-9dc2-493f-96eb-163416982494",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "\r\n  {\r\n    \"location\": {\r\n    \"lat\": \"{{latExcel}}\",\r\n    \"lng\": \"{{lngExcel}}\"\r\n  },\r\n  \"accuracy\": \"{{accuracyExcel}}\",\r\n  \"name\": \"{{nameExcel}}\",\r\n  \"phone_number\": \"{{phone_numberExcel}}\",\r\n  \"address\": \"{{addressExcel}}\",\r\n  \"types\": [\r\n    \"shoe park\",\r\n    \"shop\"\r\n  ],\r\n  \"website\": \"{{websiteExcel}}\",\r\n  \"language\": \"{{languageExcel}}\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASEURL}}/add/json?key=qaclick123",
+					"host": [
+						"{{BASEURL}}"
+					],
+					"path": [
+						"add",
+						"json"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "qaclick123"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update the place",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "862ecc6c-f3cb-4364-83da-972a82325f73",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"//const jsonData=JSON.parse(responseBody);\r",
+							"\r",
+							"//pm.collectionVariables.set(\"address\",jsonData.address);\r",
+							"//pm.collectionVariables.set(\"placeID\",jsonData.place_id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"_postman_id": "176d4dca-2ee0-4ccf-815e-8a287ac9b12c",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"place_id\":\"{{placeID}}\",\r\n\"address\":\"{{updateAddressExcel}}\",\r\n\"key\":\"qaclick123\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASEURL}}/update/json?key=qaclick123",
+					"host": [
+						"{{BASEURL}}"
+					],
+					"path": [
+						"update",
+						"json"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "qaclick123"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Verify the new place is created using placeId",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3a782c37-b4ee-4284-999e-b86d2b14dc8b",
+						"exec": [
+							"//validate status code\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"//validate header\r",
+							"pm.test(\"Content-Type is present\", function () {\r",
+							"    pm.response.to.have.header(\"Content-Type\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"_postman_id": "9941a364-88e9-465d-81f0-3da3f7c0a8c1",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASEURL}}/get/json?place_id={{placeID}}&key=qaclick123",
+					"host": [
+						"{{BASEURL}}"
+					],
+					"path": [
+						"get",
+						"json"
+					],
+					"query": [
+						{
+							"key": "Key",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "place_id",
+							"value": "{{placeID}}"
+						},
+						{
+							"key": "key",
+							"value": "qaclick123"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete new place created",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7ca02d44-16a8-45e4-a452-8d63094e6c2c",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"_postman_id": "0d866b81-ea26-43e3-9564-12ae21517769",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"place_id\":\"{{placeID}}\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASEURL}}/delete/json?key=qaclick123",
+					"host": [
+						"{{BASEURL}}"
+					],
+					"path": [
+						"delete",
+						"json"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "qaclick123"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "46a8a706-3515-45af-a805-20f67238cea9",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "60fc97ae-62f1-43d3-876d-2239310b2b4f",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "8b066ce9-6519-489d-b712-5524bdc4230f",
+			"key": "BASEURL",
+			"value": "https://rahulshettyacademy.com/maps/api/place",
+			"type": "string"
+		},
+		{
+			"id": "e4c315be-2601-49db-9e5b-e3061de3eec1",
+			"key": "placeID",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "3720b6d1-fd83-47e6-a79e-9ce11cf8b6b8",
+			"key": "scope",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "7a47324f-d1d2-401c-a88d-360db9e82f65",
+			"key": "reference",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "db888c64-98f4-4bf2-b2e9-5bd76fe5eeb0",
+			"key": "id",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "9e8bbcf7-4c94-4d21-b8da-2d9d4f001401",
+			"key": "address",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
